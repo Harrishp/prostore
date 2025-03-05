@@ -10,14 +10,14 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-  // 添加自定义规则
-  {
+  ...compat.config({
+    extends: ["next/core-web-vitals", "next/typescript", "next", "prettier"],
     rules: {
-      indent: ["error", 2], // 设置缩进为2个空格
       "@typescript-eslint/no-empty-object-type": "off",
+      "@typescript-eslint/no-explicit-any": "off", // 临时关掉对any类型的检验，生成中不建议这样做
     },
-  },
+  }),
+  //...compat.extends("next/core-web-vitals", "next/typescript"),
 ];
 
 export default eslintConfig;
