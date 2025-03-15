@@ -14,7 +14,7 @@ const eslintConfig = [
     extends: ["next/core-web-vitals", "next/typescript", "next", "prettier"],
     rules: {
       "@typescript-eslint/no-empty-object-type": "off",
-      // "@typescript-eslint/no-explicit-any": "off", // 临时关掉对any类型的检验，生成中不建议这样做
+      "@typescript-eslint/no-explicit-any": "off", // 临时关掉对any类型的检验，生成中不建议这样做
     },
   }),
   //...compat.extends("next/core-web-vitals", "next/typescript"),
