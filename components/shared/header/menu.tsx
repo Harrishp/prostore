@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
 import ModeToggle from "./mode-toggle";
 import Link from "next/link";
-import { EllipsisVertical, ShoppingCart, UserIcon } from "lucide-react";
+import { EllipsisVertical, ShoppingCart } from "lucide-react";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
@@ -39,6 +40,7 @@ const Menu = () => {
                 </Link>
               </Button>
               <UserButton />
+              <SheetDescription></SheetDescription>
             </SheetContent>
           </Sheet>
         </nav>

@@ -9,18 +9,21 @@ import {
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { signOutUser } from "@/lib/actions/user.actions";
+import { UserIcon } from "lucide-react";
 
 const UserButton = async () => {
   const session = await auth();
   if (!session) {
     return (
-      <Link href="/api/auth/signin">
-        <Button>Sign In</Button>
-      </Link>
+      <Button asChild>
+        <Link href="/sign-in">
+          <UserIcon /> Sign In
+        </Link>
+      </Button>
     );
   }
 
-  const firstInitial = session.user?.name?.charAt(0).toUpperCase() ?? "";
+  const firstInitial = session.user?.name?.charAt(0).toUpperCase() ?? "U";
 
   return (
     <div className="flex gap-2 items-center">
