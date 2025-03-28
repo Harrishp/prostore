@@ -4,7 +4,6 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/db/prisma";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { NextResponse } from "next/server";
 
 export const config = {
   pages: {
@@ -53,9 +52,9 @@ export const config = {
     }),
   ],
   callbacks: {
-    async session({ session, trigger, token }: any) {
+    async session({ session, user, trigger, token }: any) {
       // Map the token data to the session object
-      session.user.id = token.id;
+      session.user.id = token.sub;
       session.user.name = token.name;
       session.user.role = token.role;
       // If there is an update, set the name on the session
@@ -93,23 +92,24 @@ export const config = {
       // Check for cart cookie
       if (!request.cookies.get("sessionCartId")) {
         // Generate cart cookie
-        const sessionCartId = crypto.randomUUID();
+        // const sessionCartId = crypto.randomUUID();
 
-        // Clone the request headers
-        const newRequestHeaders = new Headers(request.headers);
+        // // Clone the request headers
+        // const newRequestHeaders = new Headers(request.headers);
 
-        // Create a new response and add the new headers
-        const response = NextResponse.next({
-          request: {
-            headers: newRequestHeaders,
-          },
-        });
+        // // Create a new response and add the new headers
+        // const response = NextResponse.next({
+        //   request: {
+        //     headers: newRequestHeaders,
+        //   },
+        // });
 
-        // Set the newly generated sessionCartId in the response cookie
-        response.cookies.set("sessionCartId", sessionCartId);
+        // // Set the newly generated sessionCartId in the response cookie
+        // response.cookies.set("sessionCartId", sessionCartId);
 
-        // Return the response with the sessionCartId set
-        return response;
+        // // Return the response with the sessionCartId set
+        // return response;
+        return true;
       } else {
         return true;
       }
