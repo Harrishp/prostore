@@ -27,9 +27,9 @@ const ShippingAddressPage = async () => {
 
   return (
     <>
-      <ShippingAddressForm address={user?.address as ShippingAddress | null} />
+      <ShippingAddressForm address={user.address as ShippingAddress} />
     </>
-  )
+  );
 };
 
 export default ShippingAddressPage;
