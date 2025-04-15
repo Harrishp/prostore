@@ -5,13 +5,13 @@ import { auth } from "@/auth";
 import { getMyCart } from "./cart.actions";
 import { getUserById } from "./user.actions";
 import { prisma } from "@/db/prisma";
-import { CartItem } from "@/types";
+import { CartItem, ShippingAddress } from "@/types";
 import { convertToPlainObject } from "../utils";
 import { insertOrderSchema } from "../validator";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 
 // Create Order
-export const createOrder = async () => {
+export async function createOrder() {
   try {
     const session = await auth();
     if (!session) throw new Error("User is not authenticated");
@@ -45,11 +45,10 @@ export const createOrder = async () => {
         redirectTo: "/payment-method",
       };
     }
-
     // Prepare the order object
     const order = insertOrderSchema.parse({
       userId: user.id,
-      shippingAddress: user.address,
+      shippingAddress: JSON.parse(user.address as string) as ShippingAddress,
       paymentMethod: user.paymentMethod,
       itemsPrice: cart.itemsPrice,
       shippingPrice: cart.shippingPrice,
@@ -84,17 +83,18 @@ export const createOrder = async () => {
 
       return insertedOrder.id;
     });
+    console.log("insertedOrderId:", insertedOrderId);
     if (!insertedOrderId) throw new Error("Order not created");
     return {
       success: true,
-      message: "Order created",
+      message: "Order successfully created",
       redirectTo: `/order/${insertedOrderId}`,
     };
   } catch (error) {
     if (isRedirectError(error)) throw error;
     return { success: false, message: formatError(error) };
   }
-};
+}
 
 export async function getOrderById(orderId: string) {
   const data = await prisma.order.findFirst({

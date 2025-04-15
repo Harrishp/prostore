@@ -10,7 +10,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useToast } from "@/hooks/use-toast";
 import { formatCurrency, formatDateTime, formatId } from "@/lib/utils";
 import { Order } from "@/types";
 import Image from "next/image";
@@ -31,7 +30,6 @@ const OrderDetailsTable = ({ order }: { order: Order }) => {
     deliveredAt,
   } = order;
 
-  const { toast } = useToast();
   return (
     <>
       <h1 className="py-4 text-2xl"> Order {formatId(order.id)}</h1>

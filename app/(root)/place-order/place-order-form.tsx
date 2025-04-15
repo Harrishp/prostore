@@ -8,6 +8,14 @@ import { useRouter } from "next/navigation";
 const PlaceOrderForm = () => {
   const router = useRouter();
 
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const res = await createOrder();
+    if (res.redirectTo) {
+      router.push(res.redirectTo);
+    }
+  };
+
   const PlaceOrderButton = () => {
     const { pending } = useFormStatus();
     return (
@@ -20,18 +28,6 @@ const PlaceOrderForm = () => {
         Place Order
       </Button>
     );
-  };
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    const result = await createOrder();
-    if (result.success) {
-      if (result.redirectTo) {
-        router.push(result.redirectTo);
-      }
-    } else {
-      alert(result.message);
-    }
   };
 
   return (

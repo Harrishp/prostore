@@ -37,7 +37,7 @@ const placeOrderPage = async () => {
   if (!user.address) redirect("/shipping-address");
   if (!user.paymentMethod) redirect("/payment-method");
 
-  const userAddress = user.address as ShippingAddress;
+  const userAddress = JSON.parse(user.address as string) as ShippingAddress;
 
   return (
     <>
