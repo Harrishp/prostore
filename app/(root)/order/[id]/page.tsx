@@ -31,6 +31,7 @@ const OrderDetailPage = async (props: { params: Promise<{ id: string }> }) => {
           qty: item.qty,
         })),
       }}
+      paypalClientId={process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "sb"}
     />
   );
 };
