@@ -1,24 +1,31 @@
 "use client";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
-import { cn } from "@/lib/utils";
 
 const links = [
   {
-    title: "Profile",
-    href: "/user/profile",
+    title: "Overview",
+    href: "/admin/overview",
+  },
+  {
+    title: "Products",
+    href: "/admin/products",
   },
   {
     title: "Orders",
-    href: "/user/orders",
+    href: "/admin/orders",
+  },
+  {
+    title: "Users",
+    href: "/admin/users",
   },
 ];
 
-const MainNav = ({
+export function MainNav({
   className,
   ...props
-}: React.HTMLAttributes<HTMLElement>) => {
+}: React.HTMLAttributes<HTMLElement>) {
   const pathname = usePathname();
 
   return (
@@ -40,6 +47,4 @@ const MainNav = ({
       ))}
     </nav>
   );
-};
-
-export default MainNav;
+}
